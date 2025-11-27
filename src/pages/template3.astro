@@ -1,0 +1,384 @@
+---
+/**
+ * TEMPLATE 3: MINIMALISTA CORPORATIVO
+ * Diseño limpio, elegante y directo. Perfecto para agencias, consultorías y empresas B2B.
+ * Énfasis: Profesionalismo, confianza, resultados medibles
+ * Colores: Azul oscuro + Blanco + Acentos en teal
+ */
+
+import Layout from "../layouts/Layout.astro";
+import { clientData } from "../data/client-data.js";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import FloatingButtons from "../components/FloatingButtons.astro";
+import ContactForm from "../components/ContactForm.astro";
+
+const {
+  hero,
+  services,
+  stats,
+  about,
+  testimonials,
+  footer,
+  floatingButtons,
+  contact,
+  cta,
+} = clientData;
+
+const imageUrl = about.imageUrl || "/placeholder.jpg";
+const imageAlt = about.imageAlt || "Sobre nosotros";
+
+import "../styles/global.css";
+
+// Metadata
+const {
+  title: propTitle,
+  description: propDescription,
+  keywords: propKeywords,
+  ogImage: propOgImage,
+  ogDescription: propOgDescription,
+} = Astro.props || {};
+
+// Defaults (se usan si no vienen props desde la página)
+const title = propTitle ?? "Mi Web | Soluciones Digitales Profesionales";
+const description =
+  propDescription ??
+  "Creamos soluciones profesionales para tu negocio en línea. Diseño web, marketing digital y SEO para hacer crecer tu empresa.";
+const keywords =
+  propKeywords ??
+  "diseño web, marketing digital, SEO, desarrollo web, agencia digital";
+const ogTitle = title;
+const ogDescription =
+  propOgDescription ??
+  "Creamos soluciones profesionales para tu negocio en línea.";
+const ogType = "website";
+const ogLocale = "es_ES";
+const icons = [
+  { url: "/icon-light-32x32.png", media: "(prefers-color-scheme: light)" },
+  { url: "/icon-dark-32x32.png", media: "(prefers-color-scheme: dark)" },
+  { url: "/icon.svg", type: "image/svg+xml" },
+];
+const appleIcon = "/apple-icon.png";
+---
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={ogDescription} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:locale" content={ogLocale} />
+    {icons.map((icon) => <link rel="icon" {...icon} />)}
+    <link rel="apple-touch-icon" href={appleIcon} />
+    <!-- Google Fonts Inter -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="antialiased font-sans">
+    <!-- Skip link accesible -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:bg-primary focus:text-primary-foreground focus:px-4 focus:py-2 focus:rounded-lg"
+    >
+      Saltar al contenido principal
+    </a>
+
+    <Layout
+      title={clientData.seo.title}
+      description={clientData.seo.description}
+    >
+      <Header
+        logoText="TechVision"
+        navLinks={[
+          { label: "Servicios", href: "#servicios" },
+          { label: "Empresa", href: "#nosotros" },
+          { label: "Casos de éxito", href: "#testimonios" },
+          { label: "Contacto", href: "#contacto" },
+        ]}
+      />
+
+      <main class="overflow-hidden">
+        <!-- ========== HERO MINIMALISTA ========== -->
+        <section
+          class="relative min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden flex items-center pt-20"
+        >
+          <!-- Elementos decorativos sutil -->
+          <div class="absolute inset-0 opacity-10">
+            <div
+              class="absolute top-20 left-10 w-72 h-72 bg-teal-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"
+            >
+            </div>
+            <div
+              class="absolute top-40 right-10 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"
+              style="animation-delay: 2s;"
+            >
+            </div>
+          </div>
+
+          <div
+            class="relative max-w-7xl mx-auto px-4 py-20 grid md:grid-cols-2 gap-12 items-center w-full"
+          >
+            <!-- Contenido texto -->
+            <div class="space-y-8">
+              <div>
+                <span
+                  class="inline-block px-4 py-2 bg-teal-500/10 border border-teal-500/30 rounded-full text-teal-400 text-sm font-semibold mb-4"
+                >
+                  ⚡ Soluciones Inteligentes
+                </span>
+                <h1
+                  class="text-5xl md:text-6xl font-black text-white leading-tight tracking-tight"
+                >
+                  {hero.title}
+                </h1>
+                <p
+                  class="text-xl text-slate-300 mt-6 leading-relaxed font-light"
+                >
+                  {hero.subtitle}
+                </p>
+              </div>
+
+              <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                <a
+                  href={hero.ctaHref}
+                  class="px-8 py-4 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-center"
+                >
+                  {hero.ctaText}
+                </a>
+                <a
+                  href={hero.secondaryCtaHref}
+                  class="px-8 py-4 border-2 border-slate-400 text-white hover:border-white hover:bg-white/5 transition-all rounded-lg font-semibold text-center"
+                >
+                  {hero.secondaryCtaText}
+                </a>
+              </div>
+
+              <!-- Stats mini en hero -->
+              <div class="grid grid-cols-3 gap-4 pt-8">
+                {
+                  stats.items.slice(0, 3).map((stat) => (
+                    <div class="bg-white/5 backdrop-blur border border-white/10 rounded-lg p-4 hover:bg-white/10 transition-colors">
+                      <p class="text-2xl font-bold text-teal-400">
+                        {stat.number}
+                      </p>
+                      <p class="text-xs text-slate-400 mt-1">{stat.label}</p>
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+
+            <!-- Imagen hero -->
+            <div class="relative hidden md:block">
+              <div
+                class="absolute inset-0 bg-gradient-to-r from-teal-500 to-blue-500 rounded-2xl blur-2xl opacity-20"
+              >
+              </div>
+              <img
+                src={hero.backgroundImage}
+                alt="Hero"
+                class="relative w-full h-full object-cover rounded-2xl shadow-2xl"
+              />
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== SERVICIOS EN GRID ========== -->
+        <section id="servicios" class="py-20 bg-white">
+          <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+              <h2 class="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+                {services.title}
+              </h2>
+              <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+                {services.subtitle}
+              </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {
+                services.items.map((service) => (
+                  <div class="group bg-slate-50 hover:bg-slate-100 p-8 rounded-xl transition-all duration-300 border border-slate-200 hover:border-teal-500 hover:shadow-lg">
+                    <div class="w-12 h-12 bg-teal-600 rounded-lg flex items-center justify-center text-white text-2xl mb-4 group-hover:bg-teal-700 transition-colors group-hover:scale-110 transform">
+                      {service.icon === "design" && "🤖"}
+                      {service.icon === "analytics" && "📊"}
+                      {service.icon === "development" && "⚙️"}
+                      {service.icon === "strategy" && "🔍"}
+                      {service.icon === "marketing" && "💬"}
+                      {service.icon === "seo" && "🔗"}
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">
+                      {service.title}
+                    </h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                      {service.description}
+                    </p>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== ESTADÍSTICAS DESTACADAS ========== -->
+        <section
+          class="py-20 bg-gradient-to-r from-teal-600 to-teal-700 text-white"
+        >
+          <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 text-center">
+              {
+                stats.items.map((stat) => (
+                  <div>
+                    <p class="text-5xl md:text-6xl font-black mb-2">
+                      {stat.number}
+                    </p>
+                    <p class="text-teal-100">{stat.label}</p>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== SOBRE NOSOTROS ========== -->
+        <section id="nosotros" class="py-20 bg-slate-50">
+          <div
+            class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center"
+          >
+            <div>
+              <h2 class="text-4xl font-bold text-slate-900 mb-6">
+                {about.title}
+              </h2>
+              <div class="space-y-4">
+                {
+                  about.paragraphs.map((para) => (
+                    <p class="text-slate-700 leading-relaxed text-lg">{para}</p>
+                  ))
+                }
+              </div>
+            </div>
+            <div class="relative">
+              <div class="absolute -inset-4 bg-primary/10 rounded-2xl -z-10">
+              </div>
+              <img
+                src={imageUrl}
+                alt={imageAlt}
+                class="rounded-xl shadow-xl w-full h-auto object-cover"
+                loading="lazy"
+                width="600"
+                height="400"
+              />
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== TESTIMONIOS ELEGANTES ========== -->
+        <section id="testimonios" class="py-20 bg-white">
+          <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+              <h2 class="text-4xl font-bold text-slate-900 mb-4">
+                {testimonials.title}
+              </h2>
+              <p class="text-lg text-slate-600">{testimonials.subtitle}</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+              {
+                testimonials.items.map((testimonial) => (
+                  <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all border-l-4 border-teal-600 hover:border-teal-700">
+                    <div class="flex items-center mb-4">
+                      <img
+                        src={testimonial.avatar}
+                        alt={testimonial.author}
+                        class="w-12 h-12 rounded-full object-cover mr-4"
+                      />
+                      <div>
+                        <p class="font-bold text-slate-900">
+                          {testimonial.author}
+                        </p>
+                        <p class="text-sm text-slate-600">{testimonial.role}</p>
+                      </div>
+                    </div>
+                    <p class="text-slate-700 leading-relaxed italic">
+                      "{testimonial.quote}"
+                    </p>
+                    <div class="flex text-yellow-400 mt-4">⭐⭐⭐⭐⭐</div>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== CTA FINAL ========== -->
+        <section
+          class="py-20 bg-gradient-to-r from-slate-900 to-teal-900 text-white"
+        >
+          <div class="max-w-3xl mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">{cta.title}</h2>
+            <p class="text-xl text-slate-300 mb-8">{cta.subtitle}</p>
+            <p class="text-sm text-teal-300 font-semibold mb-8">
+              {cta.urgency}
+            </p>
+            <a
+              href={cta.ctaHref}
+              class="inline-block px-8 py-4 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-lg transition-all duration-300 transform hover:scale-105"
+            >
+              {cta.ctaText}
+            </a>
+          </div>
+        </section>
+
+        <!-- ========== CONTACTO ========== -->
+        <section id="contacto" class="py-20 bg-white">
+          <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center text-slate-900 mb-4">
+              {contact.title}
+            </h2>
+            <p class="text-center text-slate-600 mb-12">{contact.subtitle}</p>
+            <ContactForm />
+          </div>
+        </section>
+      </main>
+
+      <Footer
+        companyName={footer.companyName}
+        tagline={footer.tagline}
+        navLinks={footer.navLinks}
+        legalLinks={footer.legalLinks}
+        socialLinks={footer.socialLinks}
+        contactInfo={footer.contactInfo}
+      />
+
+      <FloatingButtons
+        whatsappNumber={floatingButtons.whatsapp.number}
+        email={floatingButtons.email.address}
+      />
+
+      <style>
+        @keyframes pulse-slow {
+          0%,
+          100% {
+            opacity: 0.3;
+          }
+          50% {
+            opacity: 0.5;
+          }
+        }
+
+        .animate-pulse {
+          animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+      </style>
+    </Layout>
+
+    <!-- Analytics Vercel -->
+    <script async defer src="https://vercel.com/analytics/script.js"></script>
+  </body>
+</html>

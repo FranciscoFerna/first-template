@@ -1,0 +1,44 @@
+---
+/**
+ * Template: Clínica dental / Negocio familiar
+ */
+import Layout from '../layouts/Layout.astro';
+import { clientData } from '../data/client-data.js';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ContactForm from '../components/ContactForm.astro';
+const clinic = {
+  title: "Clínica Dental Familiar",
+  subtitle: "Atención integral, cercana y con tecnología para tu salud dental.",
+  benefits: [
+    "Atención para todas las edades",
+    "Equipos modernos y esterilización profesional",
+    "Planes de tratamiento personalizados"
+  ]
+};
+---
+
+<Layout title={`${clinic.title} — ${clientData.companyName}`} description={clinic.subtitle}>
+  <Header logoText={clientData.companyName} navLinks={[{label:"Servicios", href:"#servicios"},{label:"Contacto", href:"#contacto"}]} />
+
+  <main class="py-16 bg-background">
+    <section class="max-w-4xl mx-auto px-4 text-center">
+      <h1 class="text-4xl font-bold mb-4">{clinic.title}</h1>
+      <p class="text-lg text-muted-foreground mb-8">{clinic.subtitle}</p>
+      <ul class="max-w-xl mx-auto grid gap-4 text-left">
+        {clinic.benefits.map(b => (
+          <li class="p-4 bg-card border border-border rounded-lg">{b}</li>
+        ))}
+      </ul>
+    </section>
+
+    <section id="contacto" class="py-12">
+      <div class="max-w-2xl mx-auto px-4">
+        <h2 class="text-2xl font-bold mb-4">Pide una consulta</h2>
+        <ContactForm />
+      </div>
+    </section>
+  </main>
+
+  <Footer companyName={clientData.footer.companyName} navLinks={clientData.footer.navLinks} socialLinks={clientData.footer.socialLinks} contactInfo={clientData.footer.contactInfo} />
+</Layout>

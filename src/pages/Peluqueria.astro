@@ -1,0 +1,50 @@
+---
+/**
+ * Template: Peluquería / Salón local
+ */
+import Layout from '../layouts/Layout.astro';
+import { clientData } from '../data/client-data.js';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FloatingButtons from '../components/FloatingButtons.astro';
+import ContactForm from '../components/ContactForm.astro';
+
+const salon = {
+  title: "Estética & Corte - Salón Local",
+  subtitle: "Cortes, color y estilo personalizados para cada cliente. Calidad y atención cercana.",
+  services: [
+    { title: "Cortes a medida", description: "Diseñados para tu estilo y forma de rostro." },
+    { title: "Color y mechas", description: "Técnicas profesionales y productos de alta calidad." },
+    { title: "Peinados para eventos", description: "Novias, fiestas y eventos especiales." }
+  ]
+};
+---
+
+<Layout title={`${salon.title} — ${clientData.companyName}`} description={salon.subtitle}>
+  <Header logoText={clientData.companyName} navLinks={[{label:"Servicios", href:"#servicios"},{label:"Contacto", href:"#contacto"}]} />
+
+  <main class="py-16">
+    <section class="max-w-4xl mx-auto px-4 text-center">
+      <h1 class="text-4xl font-bold mb-4">{salon.title}</h1>
+      <p class="text-lg text-muted-foreground mb-8">{salon.subtitle}</p>
+      <div class="grid md:grid-cols-3 gap-6">
+        {salon.services.map(s => (
+          <div class="p-6 bg-card border border-border rounded-lg">
+            <h3 class="font-semibold mb-2">{s.title}</h3>
+            <p class="text-sm text-muted-foreground">{s.description}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section id="contacto" class="py-12">
+      <div class="max-w-2xl mx-auto px-4">
+        <h2 class="text-2xl font-bold mb-4">Reserva tu cita</h2>
+        <ContactForm />
+      </div>
+    </section>
+  </main>
+
+  <Footer companyName={clientData.footer.companyName} navLinks={clientData.footer.navLinks} socialLinks={clientData.footer.socialLinks} contactInfo={clientData.footer.contactInfo} />
+  <FloatingButtons whatsappNumber={clientData.floatingButtons.whatsapp.number} email={clientData.floatingButtons.email.address} />
+</Layout>

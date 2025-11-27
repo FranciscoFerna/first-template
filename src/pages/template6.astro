@@ -1,0 +1,233 @@
+---
+/**
+ * TEMPLATE 6: CONVERSIÓN MÁXIMA (SAAS/B2B)
+ * Diseño optimizado para conversión con psicología de ventas.
+ * CTAs prominentes, urgencia, social proof, beneficios claros.
+ * Colores: Verde + Blanco + Azul
+ */
+
+import Layout from '../layouts/Layout.astro';
+import { clientData } from '../data/client-data.js';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FloatingButtons from '../components/FloatingButtons.astro';
+import ContactForm from '../components/ContactForm.astro';
+
+const { hero, services, stats, testimonials, about, footer, floatingButtons, contact, cta } = clientData;
+---
+
+<Layout title={clientData.seo.title} description={clientData.seo.description}>
+  <Header
+    logoText="TechVision"
+    navLinks={[
+      { label: "Beneficios", href: "#servicios" },
+      { label: "Cómo Funciona", href: "#proceso" },
+      { label: "Clientes", href: "#testimonios" },
+      { label: "Contacto", href: "#contacto" },
+    ]}
+  />
+
+  <main class="bg-white overflow-hidden">
+    <!-- ========== HERO CON URGENCIA ========== -->
+    <section class="relative min-h-screen bg-gradient-to-b from-blue-600 to-blue-500 overflow-hidden flex items-center pt-20">
+      <div class="absolute top-10 right-10 bg-red-500 text-white px-4 py-2 rounded-full font-bold animate-pulse">
+        ⏰ Oferta limitada: 30% descuento
+      </div>
+
+      <div class="relative max-w-7xl mx-auto px-4 py-20 w-full">
+        <div class="max-w-3xl">
+          <h1 class="text-6xl md:text-7xl font-black text-white mb-6 leading-tight">
+            {hero.title}
+          </h1>
+          <p class="text-2xl text-blue-100 mb-8 leading-relaxed">
+            {hero.subtitle}
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-4 mb-12">
+            <a
+              href={hero.ctaHref}
+              class="px-10 py-5 bg-green-500 hover:bg-green-600 text-white font-black rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg text-lg text-center"
+            >
+              ✅ {hero.ctaText}
+            </a>
+            <a
+              href={hero.secondaryCtaHref}
+              class="px-10 py-5 bg-white/20 hover:bg-white/30 text-white font-bold rounded-lg transition-all text-lg text-center"
+            >
+              {hero.secondaryCtaText}
+            </a>
+          </div>
+
+          <!-- Social proof en hero -->
+          <div class="flex items-center gap-4 bg-white/10 backdrop-blur px-6 py-4 rounded-lg w-fit">
+            <div class="flex -space-x-2">
+              {testimonials.items.slice(0, 3).map((t) => (
+                <img src={t.avatar} alt="" class="w-8 h-8 rounded-full border-2 border-white" />
+              ))}
+            </div>
+            <div>
+              <p class="text-white font-bold">+500 empresas confían en nosotros</p>
+              <p class="text-blue-100 text-sm">⭐⭐⭐⭐⭐ 4.9/5 rating</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Elemento visual derecha -->
+      <div class="absolute right-0 bottom-0 w-1/2 h-1/2 bg-gradient-to-tl from-blue-400 to-transparent opacity-20 hidden md:block"></div>
+    </section>
+
+    <!-- ========== BENEFICIOS DESTACADOS ========== -->
+    <section id="servicios" class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-5xl font-bold text-gray-900 mb-4">{services.title}</h2>
+          <p class="text-lg text-gray-600 max-w-2xl mx-auto">{services.subtitle}</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          {services.items.map((service, index) => (
+            <div class="relative group bg-gradient-to-br from-green-50 to-blue-50 p-8 rounded-xl border-2 border-green-200 hover:border-green-500 transition-all hover:shadow-xl">
+              <div class="absolute -top-4 -left-4 w-10 h-10 bg-green-500 text-white rounded-full flex items-center justify-center font-bold">
+                {index + 1}
+              </div>
+
+              <div class="w-16 h-16 bg-gradient-to-br from-green-400 to-blue-500 rounded-lg flex items-center justify-center text-white text-3xl mb-4 group-hover:scale-110 transition-transform">
+                {service.icon === 'design' && '🤖'}
+                {service.icon === 'analytics' && '📊'}
+                {service.icon === 'development' && '⚙️'}
+                {service.icon === 'strategy' && '🔍'}
+                {service.icon === 'marketing' && '💬'}
+                {service.icon === 'seo' && '🔗'}
+              </div>
+
+              <h3 class="text-2xl font-bold text-gray-900 mb-3">{service.title}</h3>
+              <p class="text-gray-700 leading-relaxed mb-4">{service.description}</p>
+              <a href="#contacto" class="text-green-600 font-bold hover:text-green-700">Conocer más →</a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== NÚMEROS IMPACTANTES ========== -->
+    <section class="py-16 bg-gradient-to-r from-green-600 to-blue-600 text-white">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="grid md:grid-cols-4 gap-8">
+          {stats.items.map(stat => (
+            <div class="text-center">
+              <p class="text-5xl font-black mb-2">{stat.number}</p>
+              <p class="text-green-100">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CÓMO FUNCIONA ========== -->
+    <section id="proceso" class="py-20 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center text-gray-900 mb-16">Tres pasos para el éxito</h2>
+
+        <div class="relative">
+          <!-- Línea conec tora -->
+          <div class="hidden md:block absolute top-16 left-0 right-0 h-1 bg-gradient-to-r from-green-400 to-blue-500"></div>
+
+          <div class="grid md:grid-cols-3 gap-8 relative z-10">
+            {[
+              { title: "1. Análisis Gratuito", desc: "Evaluamos tu negocio en 30 mins sin costo" },
+              { title: "2. Plan Personalizado", desc: "Recetas solución IA a tu medida" },
+              { title: "3. Implementación", desc: "Deploy en 2-4 semanas, ROI garantizado" }
+            ].map((step) => (
+              <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-green-500 text-center hover:shadow-xl transition-shadow">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">{step.title}</h3>
+                <p class="text-gray-600">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== TESTIMONIOS ROBUSTO ========== -->
+    <section id="testimonios" class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center text-gray-900 mb-16">Lo que dicen nuestros clientes</h2>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          {testimonials.items.map((testimonial) => (
+            <div class="bg-gray-50 p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow border-l-4 border-green-500">
+              <div class="flex text-yellow-400 mb-4 text-xl">⭐⭐⭐⭐⭐</div>
+              <p class="text-gray-700 leading-relaxed mb-6 italic">"{testimonial.quote}"</p>
+              <div class="flex items-center">
+                <img
+                  src={testimonial.avatar}
+                  alt={testimonial.author}
+                  class="w-12 h-12 rounded-full object-cover mr-4 border-2 border-green-500"
+                />
+                <div>
+                  <p class="font-bold text-gray-900">{testimonial.author}</p>
+                  <p class="text-sm text-gray-600">{testimonial.role}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CTA FINAL EXPLOSIVO ========== -->
+    <section class="py-20 bg-gradient-to-r from-green-600 to-blue-600 text-white relative overflow-hidden">
+      <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-0 left-10 w-96 h-96 bg-white rounded-full mix-blend-multiply filter blur-3xl"></div>
+      </div>
+
+      <div class="relative max-w-3xl mx-auto px-4 text-center">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">{cta.title}</h2>
+        <p class="text-xl text-green-100 mb-8">{cta.subtitle}</p>
+        <p class="text-lg font-bold mb-8 text-yellow-300 animate-pulse">{cta.urgency}</p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href={cta.ctaHref}
+            class="px-10 py-5 bg-white text-green-600 font-bold rounded-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 text-lg"
+          >
+            🚀 {cta.ctaText}
+          </a>
+          <a
+            href={`tel:${contact.fields.phone.placeholder}`}
+            class="px-10 py-5 border-2 border-white text-white hover:bg-white hover:text-green-600 transition-all rounded-lg font-bold text-lg"
+          >
+            ☎️ Llamar Ahora
+          </a>
+        </div>
+
+        <!-- Garantía -->
+        <div class="mt-12 pt-8 border-t border-white/30">
+          <p class="text-sm text-green-100">✓ Garantía de satisfacción 100% • Sin compromisos • Cancelable en cualquier momento</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CONTACTO ========== -->
+    <section id="contacto" class="py-20 bg-white">
+      <div class="max-w-4xl mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center text-gray-900 mb-4">{contact.title}</h2>
+        <p class="text-center text-gray-600 mb-12">{contact.subtitle}</p>
+        <ContactForm />
+      </div>
+    </section>
+  </main>
+
+  <Footer
+    companyName={footer.companyName}
+    tagline={footer.tagline}
+    navLinks={footer.navLinks}
+    contactInfo={footer.contactInfo}
+  />
+
+  <FloatingButtons
+    whatsappNumber={floatingButtons.whatsapp.number}
+    email={floatingButtons.email.address}
+  />
+</Layout>
