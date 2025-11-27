@@ -1,16 +1,108 @@
 ---
-
+import Header from "../components/Header.astro"
+import Hero from "../components/Hero.astro"
+import Services from "../components/Services.astro"
+import About from "../components/About.astro"
+import Testimonials from "../components/Testimonials.astro"
+import CTA from "../components/CTA.astro"
+import ContactForm from "../components/ContactForm.astro"
+import Footer from "../components/Footer.astro"
+import FloatingButtons from "../components/FloatingButtons.astro"
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Header
+  logoText="Mi Web"
+  navLinks={[
+    { label: "Inicio", href: "#inicio" },
+    { label: "Servicios", href: "#servicios" },
+    { label: "Nosotros", href: "#nosotros" },
+    { label: "Testimonios", href: "#testimonios" },
+    { label: "Contacto", href: "#contacto" },
+  ]}
+/>
+
+<main id="main-content">
+  <Hero
+    title="Bienvenido a Mi Web"
+    subtitle="Creamos soluciones profesionales para tu negocio en línea."
+    ctaText="Contáctanos"
+    ctaHref="#contacto"
+  />
+
+  <Services
+    title="Nuestros Servicios"
+    subtitle="Ofrecemos soluciones adaptadas a tu negocio."
+    services={[
+      {
+        title: "Diseño Web",
+        description: "Creamos páginas atractivas, rápidas y responsive para cualquier dispositivo.",
+        icon: "design",
+      },
+      {
+        title: "Marketing Digital",
+        description: "Estrategias de marketing para aumentar tus clientes y ventas online.",
+        icon: "marketing",
+      },
+      {
+        title: "SEO y Posicionamiento",
+        description: "Optimización web para aparecer primero en Google y atraer más visitas.",
+        icon: "seo",
+      },
+    ]}
+  />
+
+  <About
+    title="Sobre Nosotros"
+    paragraphs={[
+      "Somos un equipo de profesionales dedicados a crear soluciones digitales a medida. Nuestra misión es ayudar a tu negocio a crecer online con diseño, marketing y estrategias efectivas.",
+      "Con años de experiencia, combinamos creatividad y tecnología para ofrecer resultados que realmente importan. Tu éxito es nuestro objetivo.",
+    ]}
+    imageUrl="/professional-team-working-together.jpg"
+    imageAlt="Equipo profesional trabajando en soluciones digitales"
+/>
+
+  <Testimonials
+    title="Lo que dicen nuestros clientes"
+    subtitle="La satisfacción de nuestros clientes es nuestra prioridad."
+    testimonials={[
+      {
+        quote: "Excelente servicio, muy profesional y rápido. Mi web quedó perfecta.",
+        author: "Juan Pérez",
+        role: "CEO, Empresa XYZ",
+      },
+      {
+        quote: "Recomiendo totalmente este equipo. Nos ayudaron a posicionarnos en Google en semanas.",
+        author: "María López",
+        role: "Marketing Manager, Negocio ABC",
+      },
+      {
+        quote: "Diseño web de calidad y atención excepcional. Muy contento con los resultados.",
+        author: "Carlos García",
+        role: "Freelance",
+      },
+    ]}
+/>
+
+  <CTA
+    title="¿Listo para empezar?"
+    subtitle="Contáctanos hoy mismo y transforma tu presencia online. Respuesta rápida y soluciones personalizadas."
+    ctaText="Contáctanos"
+    ctaHref="#contacto"
+/>
+
+  <ContactForm
+    title="Contacto"
+    subtitle="Completa el formulario y te responderemos lo antes posible."
+  />
+</main>
+
+<Footer
+  companyName="Mi Web"
+  navLinks={[
+    { label: "Inicio", href: "#inicio" },
+    { label: "Servicios", href: "#servicios" },
+    { label: "Contacto", href: "#contacto" },
+  ]}
+/>
+
+<FloatingButtons whatsappNumber="+34600000000" email="info@miweb.com" />

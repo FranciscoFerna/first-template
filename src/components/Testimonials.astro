@@ -1,0 +1,80 @@
+---
+const {
+  title = "Lo que dicen nuestros clientes",
+  subtitle = "La satisfacción de nuestros clientes es nuestra prioridad.",
+  testimonials = [
+    {
+      quote:
+        "Excelente servicio, muy profesional y rápido. Mi web quedó perfecta.",
+      author: "Juan Pérez",
+      role: "CEO, Empresa XYZ",
+    },
+    {
+      quote:
+        "Recomiendo totalmente este equipo. Nos ayudaron a posicionarnos en Google en semanas.",
+      author: "María López",
+      role: "Marketing Manager, Negocio ABC",
+    },
+    {
+      quote:
+        "Diseño web de calidad y atención excepcional. Muy contento con los resultados.",
+      author: "Carlos García",
+      role: "Freelance",
+    },
+  ],
+} = Astro.props;
+
+const quoteIcon = `<svg class="w-10 h-10 text-primary/20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-4.716-5-7-5-1.002 0-2 1-2 1s0-1-1-1-1 .5-1 1-1 3-1 3s-1 3-1 4c0 1 0 7 7 8z"></path><path d="M15 21c3 0 7-1 7-8V5c0-1.25-4.716-5-7-5-1.002 0-2 1-2 1s0-1-1-1-1 .5-1 1-1 3-1 3s-1 3-1 4c0 1 0 7 7 8z"></path></svg>`;
+---
+
+<section
+  id="testimonios"
+  class="py-20 bg-muted/50"
+  aria-labelledby="testimonials-title"
+>
+  <div class="max-w-7xl mx-auto px-4">
+    <header class="text-center mb-16">
+      <h2
+        id="testimonials-title"
+        class="text-3xl sm:text-4xl font-bold mb-4 text-foreground"
+      >
+        {title}
+      </h2>
+      <p class="text-muted-foreground max-w-2xl mx-auto text-lg">{subtitle}</p>
+    </header>
+    <div class="grid md:grid-cols-3 gap-8">
+      {
+        testimonials.map(
+          (
+            testimonial: { quote: string; author: string; role: string },
+            index: number
+          ) => (
+            <article
+              data-index={index}
+              class="bg-card p-8 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-border relative"
+            >
+              <div class="absolute top-6 right-6">
+                <Fragment set:html={quoteIcon} />
+              </div>
+              <blockquote class="mb-6">
+                <p class="text-muted-foreground leading-relaxed italic">
+                  "{testimonial.quote}"
+                </p>
+              </blockquote>
+              <footer>
+                <cite class="not-italic">
+                  <p class="font-bold text-card-foreground">
+                    {testimonial.author}
+                  </p>
+                  <p class="text-muted-foreground text-sm">
+                    {testimonial.role}
+                  </p>
+                </cite>
+              </footer>
+            </article>
+          )
+        )
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,40 @@
+---
+const {
+  whatsappNumber = "+34600000000",
+  email = "info@miweb.com",
+} = Astro.props;
+
+const cleanNumber = whatsappNumber.replace(/\D/g, "");
+const whatsappUrl = `https://wa.me/${cleanNumber}?text=${encodeURIComponent("Hola, me gustaría obtener más información.")}`;
+const emailUrl = `mailto:${email}`;
+---
+
+<div
+  class="fixed bottom-6 right-6 flex flex-col gap-3 z-50"
+  role="complementary"
+  aria-label="Botones de contacto rápido"
+>
+  <a
+    href={emailUrl}
+    class="w-14 h-14 bg-primary text-primary-foreground rounded-full flex items-center justify-center shadow-lg hover:bg-primary/90 transition-all transform hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+    aria-label="Enviar correo electrónico"
+    title="Enviar email"
+  >
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+    </svg>
+  </a>
+
+  <a
+    href={whatsappUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="w-14 h-14 bg-green-500 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition-all transform hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
+    aria-label="Contactar por WhatsApp"
+    title="WhatsApp"
+  >
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.5 8.5 0 018 8v.5z"/>
+    </svg>
+  </a>
+</div>

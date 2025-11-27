@@ -1,0 +1,53 @@
+---
+const {
+  title = "Nuestros Servicios",
+  subtitle = "Ofrecemos soluciones adaptadas a tu negocio.",
+  services = [
+    {
+      title: "Diseño Web",
+      description: "Creamos páginas atractivas, rápidas y responsive para cualquier dispositivo.",
+      icon: "design",
+    },
+    {
+      title: "Marketing Digital",
+      description: "Estrategias de marketing para aumentar tus clientes y ventas online.",
+      icon: "marketing",
+    },
+    {
+      title: "SEO y Posicionamiento",
+      description: "Optimización web para aparecer primero en Google y atraer más visitas.",
+      icon: "seo",
+    },
+  ],
+} = Astro.props;
+
+const iconMap = {
+  design: `<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.5a2 2 0 00-1 .268m-5 8h6m0 0a2 2 0 102-2m-2 2a2 2 0 11-4 0m4 0V5m0 0H7m0 0a2 2 0 10-2 2m2-2v12"></path></svg>`,
+  marketing: `<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>`,
+  seo: `<svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>`,
+};
+---
+
+<section id="servicios" class="py-20 bg-muted/50" aria-labelledby="services-title">
+  <div class="max-w-7xl mx-auto px-4">
+    <header class="text-center mb-16">
+      <h2 id="services-title" class="text-3xl sm:text-4xl font-bold mb-4 text-foreground">
+        {title}
+      </h2>
+      <p class="text-muted-foreground max-w-2xl mx-auto text-lg">{subtitle}</p>
+    </header>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {services.map((service: typeof services[number]) => (
+        <article
+          class="bg-card p-8 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-border group"
+        >
+          <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors text-primary">
+            <Fragment set:html={iconMap[service.icon as keyof typeof iconMap]} />
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-card-foreground">{service.title}</h3>
+          <p class="text-muted-foreground leading-relaxed">{service.description}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

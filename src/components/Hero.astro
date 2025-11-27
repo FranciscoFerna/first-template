@@ -1,0 +1,41 @@
+---
+const {
+  title = "Bienvenido a Mi Web",
+  subtitle = "Creamos soluciones profesionales para tu negocio en línea.",
+  ctaText = "Contáctanos",
+  ctaHref = "#contacto",
+  secondaryCtaText,
+  secondaryCtaHref,
+} = Astro.props;
+---
+
+<section
+  id="inicio"
+  class="bg-gradient-to-br from-primary to-primary/80 text-primary-foreground min-h-[90vh] flex flex-col justify-center items-center text-center px-4 py-20"
+  aria-labelledby="hero-title"
+>
+  <div class="max-w-4xl mx-auto animate-fade-in">
+    <h1 id="hero-title" class="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-balance leading-tight">
+      {title}
+    </h1>
+    <p class="text-lg sm:text-xl md:text-2xl mb-8 max-w-2xl mx-auto text-primary-foreground/90 text-pretty">
+      {subtitle}
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a
+        href={ctaHref}
+        class="inline-flex items-center justify-center bg-background text-primary font-bold px-8 py-4 rounded-lg hover:bg-background/90 transition-all transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-background focus-visible:ring-offset-2 focus-visible:ring-offset-primary shadow-lg"
+      >
+        {ctaText}
+      </a>
+      {secondaryCtaText && secondaryCtaHref && (
+        <a
+          href={secondaryCtaHref}
+          class="inline-flex items-center justify-center border-2 border-primary-foreground/30 text-primary-foreground font-bold px-8 py-4 rounded-lg hover:bg-primary-foreground/10 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
+        >
+          {secondaryCtaText}
+        </a>
+      )}
+    </div>
+  </div>
+</section>

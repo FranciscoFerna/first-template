@@ -1,0 +1,81 @@
+---
+const {
+  logoText = "Mi Web",
+  navLinks = [
+    { label: "Inicio", href: "#inicio" },
+    { label: "Servicios", href: "#servicios" },
+    { label: "Contacto", href: "#contacto" },
+  ],
+} = Astro.props;
+---
+
+<script type="module">
+  let isMenuOpen = false;
+
+  window.toggleMenu = () => {
+    isMenuOpen = !isMenuOpen;
+    document.getElementById('mobile-menu').classList.toggle('hidden');
+  };
+
+  window.closeMenu = () => {
+    isMenuOpen = false;
+    document.getElementById('mobile-menu').classList.add('hidden');
+  };
+</script>
+
+<header class="bg-background/95 backdrop-blur-sm shadow-sm sticky top-0 z-50 border-b border-border">
+  <div class="max-w-7xl mx-auto flex justify-between items-center p-4">
+    <a
+      href="/"
+      class="text-2xl font-bold text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm"
+      aria-label={`${logoText} - Ir a inicio`}
+    >
+      {logoText}
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex items-center gap-8" aria-label="Navegación principal">
+      {navLinks.map((link: { label: string; href: string }) => (
+        <a
+          href={link.href}
+          class="text-muted-foreground font-medium hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm py-1"
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <!-- Mobile Menu Button -->
+    <button
+      type="button"
+      class="md:hidden p-2 text-muted-foreground hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-md"
+      onclick="window.toggleMenu()"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Abrir menú"
+    >
+      <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile Navigation -->
+  <nav
+    id="mobile-menu"
+    class="hidden md:hidden bg-background border-t border-border"
+    aria-label="Navegación móvil"
+  >
+    <div class="flex flex-col p-4 gap-4">
+      {navLinks.map((link: { label: string; href: string }) => (
+        <a
+          href={link.href}
+          class="text-muted-foreground font-medium hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-sm py-2"
+          onclick="window.closeMenu()"
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+  </nav>
+</header>

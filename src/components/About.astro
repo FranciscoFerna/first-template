@@ -1,0 +1,31 @@
+---
+const {
+  title = "Sobre Nosotros",
+  paragraphs = [
+    "Somos un equipo de profesionales dedicados a crear soluciones digitales a medida. Nuestra misión es ayudar a tu negocio a crecer online con diseño, marketing y estrategias efectivas.",
+    "Con años de experiencia, combinamos creatividad y tecnología para ofrecer resultados que realmente importan. Tu éxito es nuestro objetivo.",
+  ],
+} = Astro.props;
+---
+
+<section id="nosotros" class="py-20 bg-background" aria-labelledby="about-title">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center px-4">
+    <div>
+      <h2 id="about-title" class="text-3xl sm:text-4xl font-bold mb-6 text-foreground">
+        {title}
+      </h2>
+      {paragraphs.map((paragraph: string) => (
+        <p class="text-muted-foreground mb-4 leading-relaxed text-lg">{paragraph}</p>
+      ))}
+    </div>
+    <div class="relative">
+      <div class="absolute -inset-4 bg-primary/10 rounded-2xl -z-10"></div>
+      <img
+        class="rounded-xl shadow-xl w-full h-auto object-cover"
+        loading="lazy"
+        width="600"
+        height="400"
+      />
+    </div>
+  </div>
+</section>

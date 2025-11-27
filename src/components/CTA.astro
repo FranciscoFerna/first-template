@@ -1,0 +1,25 @@
+---
+const {
+  title = "¿Listo para empezar?",
+  subtitle = "Contáctanos hoy mismo y transforma tu presencia online. Respuesta rápida y soluciones personalizadas.",
+  ctaText = "Contáctanos",
+  ctaHref = "#contacto",
+} = Astro.props;
+---
+
+<section class="py-20 bg-primary text-primary-foreground" aria-labelledby="cta-title">
+  <div class="max-w-4xl mx-auto text-center px-4">
+    <h2 id="cta-title" class="text-3xl sm:text-4xl font-bold mb-6 text-balance">
+      {title}
+    </h2>
+    <p class="mb-8 text-lg text-primary-foreground/90 max-w-2xl mx-auto text-pretty">
+      {subtitle}
+    </p>
+    <a
+      href={ctaHref}
+      class="inline-flex items-center justify-center bg-background text-primary font-bold px-10 py-4 rounded-lg hover:bg-background/90 transition-all transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-background focus-visible:ring-offset-2 focus-visible:ring-offset-primary shadow-lg text-lg"
+    >
+      {ctaText}
+    </a>
+  </div>
+</section>
