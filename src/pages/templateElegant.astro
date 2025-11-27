@@ -1,0 +1,354 @@
+---
+/**
+ * ===========================================
+ * TEMPLATE ELEGANTE - LANDING PAGE MINIMALISTA
+ * ===========================================
+ *
+ * Template alternativo con diseño más minimalista y elegante.
+ * Ideal para: consultorías, estudios de diseño, servicios premium
+ *
+ * CARACTERÍSTICAS:
+ * - Diseño minimalista y sofisticado
+ * - Espacios amplios y respirables
+ * - Tipografía destacada
+ * - Animaciones sutiles
+ * - Paleta de colores neutral
+ */
+import Layout from '../layouts/Layout.astro';
+import { clientData, config } from '../data/client-data.js';
+
+// Componentes
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Services from '../components/Services.astro';
+import Stats from '../components/Stats.astro';
+import About from '../components/About.astro';
+import Testimonials from '../components/Testimonials.astro';
+import CTA from '../components/CTA.astro';
+import ContactForm from '../components/ContactForm.astro';
+import Footer from '../components/Footer.astro';
+import FloatingButtons from '../components/FloatingButtons.astro';
+---
+
+<Layout
+  title={clientData.seo.title}
+  description={clientData.seo.description}
+  keywords={clientData.seo.keywords}
+  ogImage={clientData.seo.ogImage}
+>
+  <!-- Header with elegant styling -->
+  <div class="elegant-template">
+    <Header
+      logoText={clientData.companyName}
+      navLinks={clientData.footer.navLinks}
+    />
+
+    <main id="main-content" class="elegant-main">
+      <!-- Hero Section with elegant layout -->
+      {config.sections.hero && (
+        <section class="elegant-hero min-h-screen flex items-center justify-center px-4 py-20">
+          <div class="max-w-4xl mx-auto text-center">
+            <p class="text-sm uppercase tracking-wider text-muted-foreground mb-6 elegant-subtitle">
+              {clientData.companyName}
+            </p>
+            <h1 class="text-5xl sm:text-6xl md:text-7xl font-light mb-8 text-foreground leading-tight">
+              {clientData.hero.title}
+            </h1>
+            <p class="text-xl md:text-2xl text-muted-foreground mb-12 max-w-2xl mx-auto font-light">
+              {clientData.hero.subtitle}
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href={clientData.hero.ctaHref}
+                class="elegant-btn-primary px-8 py-4 font-medium transition-all"
+              >
+                {clientData.hero.ctaText}
+              </a>
+              {clientData.hero.secondaryCtaText && (
+                <a
+                  href={clientData.hero.secondaryCtaHref}
+                  class="elegant-btn-secondary px-8 py-4 font-medium transition-all"
+                >
+                  {clientData.hero.secondaryCtaText}
+                </a>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <!-- Services with elegant cards -->
+      {config.sections.services && (
+        <section id="servicios" class="py-32 bg-muted/30">
+          <div class="max-w-7xl mx-auto px-4">
+            <header class="text-center mb-20">
+              <p class="text-sm uppercase tracking-wider text-muted-foreground mb-4">
+                Qué hacemos
+              </p>
+              <h2 class="text-4xl md:text-5xl font-light text-foreground mb-6">
+                {clientData.services.title}
+              </h2>
+              <p class="text-lg text-muted-foreground max-w-2xl mx-auto font-light">
+                {clientData.services.subtitle}
+              </p>
+            </header>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {clientData.services.items.map((service: any) => (
+                <article class="elegant-card p-8 group">
+                  <div class="w-12 h-12 mb-6 elegant-icon-box">
+                    <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                  </div>
+                  <h3 class="text-xl font-medium mb-4 text-foreground">
+                    {service.title}
+                  </h3>
+                  <p class="text-muted-foreground font-light leading-relaxed">
+                    {service.description}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <!-- Stats elegant display -->
+      {config.sections.stats && clientData.stats.enabled && (
+        <section class="py-32 bg-background">
+          <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-12">
+              {clientData.stats.items.map((stat: any) => (
+                <div class="text-center">
+                  <div class="text-5xl md:text-6xl font-light text-primary mb-3">
+                    {stat.number}
+                  </div>
+                  <p class="text-sm uppercase tracking-wider text-muted-foreground">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <!-- About elegant layout -->
+      {config.sections.about && (
+        <section id="nosotros" class="py-32 bg-muted/30">
+          <div class="max-w-6xl mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+              <div>
+                <p class="text-sm uppercase tracking-wider text-muted-foreground mb-4">
+                  Quiénes somos
+                </p>
+                <h2 class="text-4xl md:text-5xl font-light text-foreground mb-8">
+                  {clientData.about.title}
+                </h2>
+                <div class="space-y-6">
+                  {clientData.about.paragraphs.map((paragraph: string) => (
+                    <p class="text-muted-foreground font-light leading-relaxed text-lg">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              </div>
+              <div class="relative">
+                <div class="elegant-image-container">
+                  <img
+                    src={clientData.about.imageUrl}
+                    alt={clientData.about.imageAlt}
+                    class="w-full h-auto object-cover rounded-sm"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      <!-- Testimonials elegant -->
+      {config.sections.testimonials && (
+        <section id="testimonios" class="py-32 bg-background">
+          <div class="max-w-6xl mx-auto px-4">
+            <header class="text-center mb-20">
+              <p class="text-sm uppercase tracking-wider text-muted-foreground mb-4">
+                Testimonios
+              </p>
+              <h2 class="text-4xl md:text-5xl font-light text-foreground">
+                {clientData.testimonials.title}
+              </h2>
+            </header>
+            <div class="grid md:grid-cols-3 gap-8">
+              {clientData.testimonials.items.map((testimonial: any) => (
+                <article class="elegant-testimonial p-8">
+                  <div class="mb-6">
+                    <svg class="w-10 h-10 text-primary/30" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                    </svg>
+                  </div>
+                  <blockquote class="mb-6">
+                    <p class="text-muted-foreground font-light italic leading-relaxed">
+                      {testimonial.quote}
+                    </p>
+                  </blockquote>
+                  <footer>
+                    <cite class="not-italic">
+                      <p class="font-medium text-foreground">{testimonial.author}</p>
+                      <p class="text-sm text-muted-foreground">{testimonial.role}</p>
+                    </cite>
+                  </footer>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <!-- CTA elegant -->
+      {config.sections.cta && (
+        <section class="py-32 bg-foreground text-background">
+          <div class="max-w-4xl mx-auto text-center px-4">
+            <h2 class="text-4xl md:text-5xl font-light mb-6">
+              {clientData.cta.title}
+            </h2>
+            <p class="text-lg md:text-xl mb-10 text-background/80 font-light">
+              {clientData.cta.subtitle}
+            </p>
+            <a
+              href={clientData.cta.ctaHref}
+              class="inline-block bg-background text-foreground px-10 py-4 font-medium hover:bg-background/90 transition-all"
+            >
+              {clientData.cta.ctaText}
+            </a>
+          </div>
+        </section>
+      )}
+
+      <!-- Contact elegant -->
+      {config.sections.contact && (
+        <ContactForm
+          title={clientData.contact.title}
+          subtitle={clientData.contact.subtitle}
+          fields={clientData.contact.fields}
+        />
+      )}
+    </main>
+
+    <Footer
+      companyName={clientData.footer.companyName}
+      tagline={clientData.footer.tagline}
+      navLinks={clientData.footer.navLinks}
+      legalLinks={clientData.footer.legalLinks}
+      socialLinks={clientData.footer.socialLinks}
+      contactInfo={clientData.footer.contactInfo}
+    />
+
+    {(clientData.floatingButtons.whatsapp.enabled || clientData.floatingButtons.email.enabled) && (
+      <FloatingButtons
+        whatsappEnabled={clientData.floatingButtons.whatsapp.enabled}
+        whatsappNumber={clientData.floatingButtons.whatsapp.number}
+        whatsappMessage={clientData.floatingButtons.whatsapp.message}
+        emailEnabled={clientData.floatingButtons.email.enabled}
+        emailAddress={clientData.floatingButtons.email.address}
+      />
+    )}
+  </div>
+</Layout>
+
+<style>
+  /* Elegant Template Specific Styles */
+  .elegant-template {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  .elegant-hero {
+    background: linear-gradient(180deg,
+      hsl(var(--background)) 0%,
+      hsl(var(--muted) / 0.2) 100%
+    );
+  }
+
+  .elegant-subtitle {
+    animation: fadeInDown 0.8s ease-out;
+  }
+
+  .elegant-btn-primary {
+    background: hsl(var(--foreground));
+    color: hsl(var(--background));
+    border-radius: 2px;
+  }
+
+  .elegant-btn-primary:hover {
+    background: hsl(var(--foreground) / 0.9);
+    transform: translateY(-2px);
+  }
+
+  .elegant-btn-secondary {
+    border: 1px solid hsl(var(--border));
+    color: hsl(var(--foreground));
+    border-radius: 2px;
+  }
+
+  .elegant-btn-secondary:hover {
+    background: hsl(var(--muted));
+  }
+
+  .elegant-card {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  .elegant-card:hover {
+    transform: translateY(-4px);
+    border-color: hsl(var(--primary));
+  }
+
+  .elegant-icon-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .elegant-image-container {
+    position: relative;
+  }
+
+  .elegant-image-container::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    width: 100%;
+    height: 100%;
+    border: 1px solid hsl(var(--border));
+    border-radius: 2px;
+    z-index: -1;
+  }
+
+  .elegant-testimonial {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  .elegant-testimonial:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+  }
+
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

@@ -1,0 +1,118 @@
+---
+/**
+ * Stats Component - Muestra números impactantes
+ *
+ * Props:
+ * - title: Título de la sección
+ * - items: Array de objetos { number, label }
+ */
+
+const {
+  title = "Nuestros números hablan",
+  items = [
+    { number: "100+", label: "Proyectos completados" },
+    { number: "50+", label: "Clientes felices" },
+    { number: "5+", label: "Años de experiencia" },
+    { number: "95%", label: "Satisfacción" }
+  ]
+} = Astro.props;
+---
+
+<section
+  id="estadisticas"
+  class="py-20 bg-primary text-primary-foreground section-animate"
+  aria-labelledby="stats-title"
+>
+  <div class="max-w-7xl mx-auto px-4">
+    {title && (
+      <header class="text-center mb-16">
+        <h2
+          id="stats-title"
+          class="text-3xl sm:text-4xl font-bold mb-4"
+        >
+          {title}
+        </h2>
+      </header>
+    )}
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+      {items.map((stat: { number: string; label: string }, index: number) => (
+        <article
+          class="text-center transform hover:scale-110 transition-transform duration-300"
+          data-index={index}
+        >
+          <div class="mb-3">
+            <span
+              class="text-4xl sm:text-5xl md:text-6xl font-bold block stat-number"
+              data-target={stat.number}
+            >
+              0
+            </span>
+          </div>
+          <p class="text-base sm:text-lg font-medium text-primary-foreground/90">
+            {stat.label}
+          </p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  // Animación de contador para los números
+  function animateCounter(element: HTMLElement, target: string) {
+    const isPercentage = target.includes('%');
+    const isPlus = target.includes('+');
+    const numericValue = parseInt(target.replace(/[^\d]/g, ''));
+    const duration = 2000; // 2 segundos
+    const steps = 60;
+    const increment = numericValue / steps;
+    const stepDuration = duration / steps;
+
+    let current = 0;
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= numericValue) {
+        current = numericValue;
+        clearInterval(timer);
+      }
+
+      let display = Math.floor(current).toString();
+      if (isPlus) display += '+';
+      if (isPercentage) display += '%';
+
+      element.textContent = display;
+    }, stepDuration);
+  }
+
+  // Observar cuando la sección de stats es visible
+  if (typeof window !== 'undefined') {
+    const statsSection = document.querySelector('#estadisticas');
+    let animated = false;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !animated) {
+          animated = true;
+          const statNumbers = document.querySelectorAll('.stat-number');
+          statNumbers.forEach((element) => {
+            const target = element.getAttribute('data-target');
+            if (target) {
+              animateCounter(element as HTMLElement, target);
+            }
+          });
+        }
+      });
+    }, { threshold: 0.5 });
+
+    if (statsSection) {
+      observer.observe(statsSection);
+    }
+  }
+</script>
+
+<style>
+  .stat-number {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+</style>

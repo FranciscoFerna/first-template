@@ -1,0 +1,196 @@
+---
+/**
+ * ===========================================
+ * TEMPLATE PREMIUM - LANDING PAGE PROFESIONAL
+ * ===========================================
+ *
+ * Este es un template completo listo para usar.
+ * Todos los datos se cargan desde client-data.js
+ *
+ * CARACTERÍSTICAS:
+ * - Diseño moderno y profesional
+ * - 100% responsive
+ * - Animaciones suaves
+ * - SEO optimizado
+ * - Accesible (WCAG 2.1)
+ * - Carga rápida
+ */
+
+import Layout from '../layouts/Layout.astro';
+import { clientData, config } from '../data/client-data.js';
+
+// Componentes
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Services from '../components/Services.astro';
+import Stats from '../components/Stats.astro';
+import About from '../components/About.astro';
+import Testimonials from '../components/Testimonials.astro';
+import CTA from '../components/CTA.astro';
+import ContactForm from '../components/ContactForm.astro';
+import Footer from '../components/Footer.astro';
+import FloatingButtons from '../components/FloatingButtons.astro';
+---
+
+<Layout
+  title={clientData.seo.title}
+  description={clientData.seo.description}
+  keywords={clientData.seo.keywords}
+  ogImage={clientData.seo.ogImage}
+>
+  <!-- Header con navegación -->
+  <Header
+    logoText={clientData.companyName}
+    navLinks={clientData.footer.navLinks}
+  />
+
+  <main id="main-content">
+    <!-- Hero Section -->
+    {config.sections.hero && (
+      <Hero
+        title={clientData.hero.title}
+        subtitle={clientData.hero.subtitle}
+        ctaText={clientData.hero.ctaText}
+        ctaHref={clientData.hero.ctaHref}
+        secondaryCtaText={clientData.hero.secondaryCtaText}
+        secondaryCtaHref={clientData.hero.secondaryCtaHref}
+      />
+    )}
+
+    <!-- Services Section -->
+    {config.sections.services && (
+      <Services
+        title={clientData.services.title}
+        subtitle={clientData.services.subtitle}
+        services={clientData.services.items}
+      />
+    )}
+
+    <!-- Stats Section -->
+    {config.sections.stats && clientData.stats.enabled && (
+      <Stats
+        title={clientData.stats.title}
+        items={clientData.stats.items}
+      />
+    )}
+
+    <!-- About Section -->
+    {config.sections.about && (
+      <About
+        title={clientData.about.title}
+        paragraphs={clientData.about.paragraphs}
+        imageUrl={clientData.about.imageUrl}
+        imageAlt={clientData.about.imageAlt}
+      />
+    )}
+
+    <!-- Testimonials Section -->
+    {config.sections.testimonials && (
+      <Testimonials
+        title={clientData.testimonials.title}
+        subtitle={clientData.testimonials.subtitle}
+        testimonials={clientData.testimonials.items}
+      />
+    )}
+
+    <!-- CTA Section -->
+    {config.sections.cta && (
+      <CTA
+        title={clientData.cta.title}
+        subtitle={clientData.cta.subtitle}
+        ctaText={clientData.cta.ctaText}
+        ctaHref={clientData.cta.ctaHref}
+        urgency={clientData.cta.urgency}
+      />
+    )}
+
+    <!-- Contact Form Section -->
+    {config.sections.contact && (
+      <ContactForm
+        title={clientData.contact.title}
+        subtitle={clientData.contact.subtitle}
+        fields={clientData.contact.fields}
+      />
+    )}
+  </main>
+
+  <!-- Footer -->
+  <Footer
+    companyName={clientData.footer.companyName}
+    tagline={clientData.footer.tagline}
+    navLinks={clientData.footer.navLinks}
+    legalLinks={clientData.footer.legalLinks}
+    socialLinks={clientData.footer.socialLinks}
+    contactInfo={clientData.footer.contactInfo}
+  />
+
+  <!-- Floating Action Buttons -->
+  {(clientData.floatingButtons.whatsapp.enabled || clientData.floatingButtons.email.enabled) && (
+    <FloatingButtons
+      whatsappEnabled={clientData.floatingButtons.whatsapp.enabled}
+      whatsappNumber={clientData.floatingButtons.whatsapp.number}
+      whatsappMessage={clientData.floatingButtons.whatsapp.message}
+      emailEnabled={clientData.floatingButtons.email.enabled}
+      emailAddress={clientData.floatingButtons.email.address}
+    />
+  )}
+</Layout>
+
+<style>
+  /* Estilos específicos del template premium */
+  :global(body) {
+    overflow-x: hidden;
+  }
+
+  /* Animaciones suaves para las secciones */
+  :global(.section-animate) {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  :global(.section-animate.visible) {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+
+<script>
+  // Script para animaciones al hacer scroll
+  if (typeof window !== 'undefined') {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    // Observar todas las secciones con animación
+    document.querySelectorAll('.section-animate').forEach(section => {
+      observer.observe(section);
+    });
+
+    // Smooth scroll para enlaces de anclaje
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (this: HTMLAnchorElement, e: Event) {
+        const href = this.getAttribute('href');
+        if (href === '#' || !href) return;
+
+        e.preventDefault();
+        const target = document.getElementById(href.substring(1));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  }
+</script>
