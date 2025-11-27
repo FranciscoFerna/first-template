@@ -1,0 +1,127 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { clientData } from '../data/client-data.js';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FloatingButtons from '../components/FloatingButtons.astro';
+import ContactForm from '../components/ContactForm.astro';
+import Contacto from './contacto.astro';
+
+const { hero, services, about, testimonials, cta } = clientData;
+---
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+
+  .font-serif {
+    font-family: 'Playfair Display', serif;
+  }
+</style>
+
+<Layout title={`Prestige - ${clientData.seo.title}`} description={clientData.seo.description}>
+  <Header logoText={clientData.companyName} navLinks={clientData.footer.navLinks} />
+
+  <main class="bg-[#FDFCF8] text-stone-800 overflow-x-hidden">
+
+    <section class="min-h-[90vh] flex items-center pt-20">
+      <div class="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-7 relative z-10">
+          <p class="text-stone-500 tracking-[0.2em] text-sm uppercase mb-6 border-l-2 border-stone-300 pl-4">
+            {clientData.companyName}
+          </p>
+          <h1 class="font-serif text-6xl md:text-8xl leading-[0.95] mb-8 text-stone-900">
+            {hero.title}
+          </h1>
+          <p class="text-xl text-stone-600 max-w-xl leading-relaxed mb-10 font-light">
+            {hero.subtitle}
+          </p>
+          <div class="flex gap-6">
+            <a href={hero.ctaHref} class="bg-stone-900 text-[#FDFCF8] px-8 py-4 text-sm tracking-widest uppercase hover:bg-stone-700 transition-colors">
+              {hero.ctaText}
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 relative">
+          <div class="aspect-[3/4] bg-stone-200 overflow-hidden">
+            <img src={hero.backgroundImage} alt="Hero" class="w-full h-full object-cover hover:scale-105 transition-transform duration-[2s] ease-out" />
+          </div>
+          <div class="absolute -bottom-8 -left-8 w-32 h-32 bg-[#E8E6D9] -z-10"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-32 px-6 bg-stone-100">
+      <div class="max-w-3xl mx-auto text-center">
+        <span class="text-stone-400 text-6xl font-serif block mb-4">“</span>
+        <h2 class="font-serif text-3xl md:text-5xl italic leading-tight mb-8">
+          {about.title}
+        </h2>
+        <div class="space-y-6 text-lg font-light text-stone-600">
+          {about.paragraphs.slice(0, 2).map(p => <p>{p}</p>)}
+        </div>
+        <div class="mt-12 h-px w-24 bg-stone-400 mx-auto"></div>
+      </div>
+    </section>
+
+    <section id="servicios" class="py-32 px-6">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid lg:grid-cols-3 gap-16">
+          <div class="lg:col-span-1">
+            <h2 class="font-serif text-5xl mb-6 sticky top-24">{services.title}</h2>
+            <p class="text-stone-500">{services.subtitle}</p>
+          </div>
+
+          <div class="lg:col-span-2 space-y-12">
+            {services.items.map((service, i) => (
+              <div class="group border-t border-stone-200 pt-8 hover:pl-4 transition-all duration-300 cursor-default">
+                <span class="text-stone-300 text-sm mb-2 block">0{i + 1}</span>
+                <h3 class="text-2xl font-serif mb-3 group-hover:text-stone-600 transition-colors">{service.title}</h3>
+                <p class="text-stone-500 font-light max-w-lg">{service.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="h-[60vh] w-full bg-fixed bg-center bg-cover" style={`background-image: url('${about.imageUrl}')`}></div>
+
+    <section id="testimonios" class="py-32 px-6">
+      <div class="max-w-7xl mx-auto">
+        <h2 class="font-serif text-4xl text-center mb-20">{testimonials.title}</h2>
+        <div class="grid md:grid-cols-3 gap-12">
+          {testimonials.items.map((t) => (
+            <div class="text-center">
+              <img src={t.avatar} alt="" class="w-20 h-20 rounded-full mx-auto mb-6 object-cover grayscale" />
+              <p class="font-serif text-xl italic mb-6 text-stone-800">"{t.quote}"</p>
+              <p class="text-xs tracking-widest uppercase font-bold">{t.author}</p>
+              <p class="text-xs text-stone-500 mt-1">{t.role}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto" class="py-24 bg-stone-900 text-[#FDFCF8]">
+      <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-16">
+        <div>
+          <h2 class="font-serif text-5xl mb-6">{Contacto.title}</h2>
+          <p class="text-stone-400 mb-8">{Contacto.subtitle}</p>
+          <ul class="space-y-4 text-stone-300 font-light">
+            <li>{clientData.footer.contactInfo.address}</li>
+            <li>{clientData.footer.contactInfo.phone}</li>
+            <li>{clientData.footer.contactInfo.email}</li>
+          </ul>
+        </div>
+        <div class="bg-[#FDFCF8] p-8 text-stone-900">
+          <ContactForm />
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer {...clientData.footer} />
+  <FloatingButtons {...clientData.floatingButtons} />
+</Layout>

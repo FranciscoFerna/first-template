@@ -1,0 +1,152 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { clientData } from '../data/client-data.js';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FloatingButtons from '../components/FloatingButtons.astro';
+import ContactForm from '../components/ContactForm.astro';
+
+// Extraemos datos
+const { hero, services, stats, testimonials, contact, cta } = clientData;
+---
+
+<Layout title={`Vanguard - ${clientData.seo.title}`} description={clientData.seo.description}>
+  <Header logoText={clientData.companyName} navLinks={clientData.footer.navLinks} />
+
+  <main class="bg-slate-950 text-slate-50 selection:bg-indigo-500 selection:text-white overflow-x-hidden">
+
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+      <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+      <div class="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-indigo-500 opacity-20 blur-[100px]"></div>
+
+      <div class="relative max-w-7xl mx-auto px-6 text-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-8 animate-fade-in">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+          </span>
+          Disponible Nueva Versión 2.0
+        </div>
+
+        <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-8 bg-gradient-to-b from-white to-white/60 bg-clip-text text-transparent">
+          {hero.title}
+        </h1>
+
+        <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+          {hero.subtitle}
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href={hero.ctaHref} class="w-full sm:w-auto px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-medium transition-all shadow-[0_0_40px_-10px_rgba(99,102,241,0.5)] hover:shadow-[0_0_60px_-15px_rgba(99,102,241,0.6)]">
+            {hero.ctaText}
+          </a>
+          <a href={hero.secondaryCtaHref} class="w-full sm:w-auto px-8 py-4 bg-slate-900 border border-slate-800 hover:border-slate-700 text-white rounded-lg font-medium transition-all">
+            {hero.secondaryCtaText}
+          </a>
+        </div>
+
+        <div class="mt-20 relative rounded-xl border border-slate-800 bg-slate-900/50 backdrop-blur shadow-2xl transform rotate-x-12 max-w-5xl mx-auto p-2">
+          <div class="rounded-lg overflow-hidden bg-slate-950 aspect-video flex items-center justify-center border border-slate-800">
+             <p class="text-slate-600">Dashboard Interface Preview</p>
+             </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="servicios" class="py-24 relative">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="mb-16 md:text-center max-w-3xl mx-auto">
+          <h2 class="text-3xl md:text-5xl font-bold mb-6">{services.title}</h2>
+          <p class="text-slate-400 text-lg">{services.subtitle}</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[minmax(180px,auto)]">
+          {services.items.map((service, index) => (
+            <div class={`group relative p-8 rounded-2xl border border-slate-800 bg-slate-900/50 hover:bg-slate-800/50 transition-colors overflow-hidden ${index === 0 || index === 3 ? 'md:col-span-2' : ''}`}>
+              <div class="absolute -inset-px bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
+
+              <div class="relative z-10 h-full flex flex-col justify-between">
+                <div class="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform duration-300 border border-slate-700 text-indigo-400">
+                  {/* Mapeo simple de iconos por primera letra si no hay SVG específico */}
+                  {service.title.charAt(0)}
+                </div>
+                <div>
+                  <h3 class="text-xl font-semibold text-white mb-2">{service.title}</h3>
+                  <p class="text-slate-400 text-sm leading-relaxed">{service.description}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="border-y border-slate-800 bg-slate-900/30">
+      <div class="max-w-7xl mx-auto px-6 py-16 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        {stats.items.map((stat) => (
+          <div>
+            <p class="text-4xl font-bold text-white mb-1">{stat.number}</p>
+            <p class="text-indigo-400 text-sm font-medium uppercase tracking-wider">{stat.label}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section id="testimonios" class="py-24">
+      <div class="max-w-7xl mx-auto px-6">
+        <h2 class="text-3xl md:text-4xl font-bold mb-16 text-center">{testimonials.title}</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+          {testimonials.items.map((t) => (
+            <div class="bg-slate-900 p-6 rounded-xl border border-slate-800 hover:border-indigo-500/50 transition-colors">
+              <div class="flex gap-1 text-indigo-500 mb-4">★★★★★</div>
+              <p class="text-slate-300 mb-6 leading-relaxed">"{t.quote}"</p>
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-slate-700 overflow-hidden">
+                  <img src={t.avatar} alt={t.author} class="w-full h-full object-cover" />
+                </div>
+                <div>
+                  <p class="font-semibold text-white text-sm">{t.author}</p>
+                  <p class="text-slate-500 text-xs">{t.role}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto" class="py-24 relative overflow-hidden">
+      <div class="absolute inset-0 bg-indigo-900/20"></div>
+      <div class="max-w-4xl mx-auto px-6 relative z-10">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 md:p-12 text-center shadow-2xl">
+          <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">{cta.title}</h2>
+          <p class="text-slate-400 mb-8 max-w-2xl mx-auto">{cta.subtitle}</p>
+
+          <div class="text-left max-w-lg mx-auto">
+             <ContactForm />
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="bg-slate-950 text-slate-400 border-t border-slate-900">
+    <Footer {...clientData.footer} />
+  </div>
+
+  <FloatingButtons {...clientData.floatingButtons} />
+</Layout>
+
+<style>
+  /* Ajustes específicos para input fields en dark mode */
+  :global(input), :global(textarea) {
+    background-color: #1e293b !important; /* slate-800 */
+    border-color: #334155 !important; /* slate-700 */
+    color: white !important;
+  }
+  :global(input:focus), :global(textarea:focus) {
+    border-color: #6366f1 !important; /* indigo-500 */
+    ring-color: #6366f1 !important;
+  }
+</style>
